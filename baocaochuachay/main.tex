@@ -1,0 +1,301 @@
+\documentclass[a4paper]{article}
+\usepackage{graphicx} % Required for inserting images
+
+% bibtex main
+% \usepackage{minted} % pdflatex -shell-escape main.tex
+\usepackage[utf8]{vntex} % hỗ trợ gõ và hiển thị tiếng Việt mã UTF-8
+\usepackage{times} % sử dụng phông chữ Times New Roman
+\usepackage{cite, hyperref, notoccite} % quản lý trích dẫn, tạo liên kết
+\usepackage{geometry} % tùy chỉnh lề trang và kích thước giấy
+\usepackage{setspace} % tùy chỉnh giãn dòng (single, 1.5, double)
+\usepackage{fancyhdr} % tùy chỉnh header và footer
+\usepackage{titlesec, titletoc} % định dạng tiêu đề, mục lục
+\usepackage{caption, subcaption} % tùy chỉnh chú thích
+\usepackage{tikz} % vẽ hình vector trực tiếp trong LaTeX
+\usepackage{array, multicol, multirow, longtable, makecell} % hỗ trợ bảng
+\usepackage{ragged2e} % hỗ trợ căn lề (Justify, raggedright...)
+\usepackage[table]{xcolor} % tô màu bảng và các đối tượng trong bảng
+\usepackage{amsmath, amssymb, dsfont} % ký hiệu toán học nâng cao từ AMS và font tập hợp toán học
+\usepackage{pdflscape, rotating} % xoay trang hoặc xoay đối tượng trong PDF
+\usepackage{enumitem} % tùy chỉnh danh sách liệt kê (itemize/enumerate)
+\usepackage{indentfirst} % tự động thụt đầu dòng đoạn đầu tiên
+\usepackage[ruled, vlined, linesnumbered]{algorithm2e} % viết thuật toán có khung, dòng kẻ và đánh số dòng
+
+\hypersetup{
+    colorlinks      = true,
+    linkcolor       = black,
+    citecolor       = black,
+    urlcolor        = black,
+    bookmarksopen   = True,
+    pdftitle        = {Nghiên cứu, thiết kế hệ thống RFAR ứng dụng TinyML trên thiết bị biên phục vụ công tác phân tích hoạt động lính cứu hỏa theo thời gian thực trong tình huống khẩn cấp}
+}
+
+\newcounter{boxlblcounter}  
+\newcommand{\makeboxlabel}[1]{\fbox{#1.}\hfill} % \hfill fills the label box
+\newenvironment{boxlabel}
+  {\begin{list}
+    {\arabic{boxlblcounter}}
+    {\usecounter{boxlblcounter}
+     \setlength{\labelwidth}{2em}
+     \setlength{\labelsep}{0em}
+     \setlength{\itemsep}{2pt}
+     \setlength{\leftmargin}{0.95cm}
+     \setlength{\rightmargin}{0cm}
+     \setlength{\itemindent}{0em} 
+     \let\makelabel=\makeboxlabel
+    }
+  }
+{\end{list}}
+
+% Thiết lập lề theo yêu cầu
+\geometry{top=2cm, bottom=2.5cm, left=3cm, right=2cm}
+% Đặt kích thước phông chữ thành 13pt
+\fontsize{13pt}{15pt}\selectfont
+% Thiết lập khoảng cách dòng
+\setstretch{1.5} % Dãn dòng 1.5
+% Loại bỏ khoảng cách trước và sau đoạn văn
+\setlength{\parskip}{0pt}
+
+\pagestyle{fancy}
+\fancyhf{} % Xóa tất cả header và footer hiện tại
+\fancyhead[C]{\thepage} % Cấu hình số thứ tự trang ở giữa phía trên
+\renewcommand{\headrulewidth}{0pt} % Xóa đường kẻ ngang trên header
+
+% Phong cách văn bản tùy chỉnh
+\titleformat
+    {\section} % command
+    [block] % shape
+    {\fontsize{13pt}{15pt}\selectfont\bfseries\centering} % format
+    {CHƯƠNG \thesection: } % label
+    {0pt} % sep
+    {} % before-code
+    [] % after-code
+\titleformat
+    {\subsection} % command
+    [block] % shape
+    {\fontsize{13pt}{15pt}\selectfont\bfseries} % format
+    {\thesubsection\hspace{0.1cm}} % label
+    {0pt} % sep
+    {} % before-code
+    [] % after-code
+\titleformat
+    {\subsubsection} % command
+    [block] % shape
+    {\fontsize{13pt}{15pt}\selectfont\bfseries\itshape} % format
+    {\thesubsubsection\hspace{0.1cm}} % label
+    {0pt} % sep
+    {} % before-code
+    [] % after-code
+\titleformat
+    {\paragraph} % command
+    [block] % shape
+    {\fontsize{13pt}{15pt}\selectfont\itshape} % format
+    {\theparagraph\hspace{0.1cm}} % label
+    {0pt} % sep
+    {} % before-code
+    [] % after-code
+
+% Caption đồng bộ cỡ chữ 13pt, line=15pt, giãn 1.5
+\DeclareCaptionFont{cap13}{\setstretch{1.5}\fontsize{13pt}{15pt}\selectfont}
+\captionsetup{font=cap13}
+\captionsetup[sub]{font=cap13} % nếu có \subcaption
+
+% Thiết lập số thứ tự của hình ảnh, bảng biểu và phương trình theo chương
+\counterwithin{figure}{section}     % Hình ảnh
+\counterwithin{table}{section}      % Bảng biểu
+\counterwithin{equation}{section}   % Phương trình
+
+\begin{document}
+
+% \maketitle
+
+\thispagestyle{empty}
+% Vẽ đường kẻ bên ngoài
+\begin{tikzpicture}[remember picture, overlay]
+    % Đường kẻ bên ngoài
+    \draw[line width=1.0mm] (-0.7,-24.2) rectangle (+15.7,-0.1);
+    % Đường kẻ bên trong
+    \draw[line width=0.2mm] (-0.5,-24.0) rectangle (+15.5,-0.3);
+\end{tikzpicture}
+\begin{center}
+    \fontsize{13pt}{15pt}\selectfont{
+        \textbf{BỘ GIÁO DỤC VÀ ĐÀO TẠO}
+        }\\
+    \vspace{-0.2cm}
+    \begin{tikzpicture}
+        \draw[line width=0.2mm] (-2,0) -- (2,0);
+    \end{tikzpicture}\\
+    \vspace{3.2cm}
+    \textbf{BÁO CÁO TIẾN ĐỘ THỰC HIỆN ĐỀ TÀI}\\
+    \vspace{1.5cm}
+    \textbf{SINH VIÊN NGHIÊN CỨU KHOA HỌC NĂM HỌC 2025--2026}\\
+    \vspace{3.0cm}
+    \textbf{NGHIÊN CỨU, THIẾT KẾ HỆ THỐNG RFAR ỨNG DỤNG TINYML}\\
+    \textbf{TRÊN THIẾT BỊ BIÊN PHỤC VỤ CÔNG TÁC PHÂN TÍCH}\\
+    \textbf{HOẠT ĐỘNG LÍNH CỨU HỎA THEO THỜI GIAN THỰC}\\
+    \textbf{TRONG TÌNH HUỐNG KHẨN CẤP}\\
+    \vspace{3.0cm}
+    Lĩnh vực khoa học và công nghệ: Khoa học kỹ thuật và công nghệ\\
+    Chuyên ngành thuộc lĩnh vực khoa học và công nghệ: Kỹ thuật điện tử và viễn thông
+\end{center}
+
+\pagebreak
+
+\thispagestyle{empty}
+% Vẽ đường kẻ bên ngoài
+\begin{tikzpicture}[remember picture, overlay]
+    % Đường kẻ bên ngoài
+    \draw[line width=1.0mm] (-0.7,-24.2) rectangle (+15.7,-0.1);
+    % Đường kẻ bên trong
+    \draw[line width=0.2mm] (-0.5,-24.0) rectangle (+15.5,-0.3);
+\end{tikzpicture}
+\begin{center}
+    \fontsize{13pt}{15pt}\selectfont{
+        \textbf{TRƯỜNG ĐẠI HỌC PHENIKAA}
+        }\\
+    \vspace{3.8cm}
+    \textbf{BÁO CÁO TIẾN ĐỘ THỰC HIỆN ĐỀ TÀI}\\
+    \vspace{1.5cm}
+    \textbf{SINH VIÊN NGHIÊN CỨU KHOA HỌC NĂM HỌC 2025--2026}\\
+    \vspace{3.0cm}
+    \textbf{NGHIÊN CỨU, THIẾT KẾ HỆ THỐNG RFAR ỨNG DỤNG TINYML}\\
+    \textbf{TRÊN THIẾT BỊ BIÊN PHỤC VỤ CÔNG TÁC PHÂN TÍCH}\\
+    \textbf{HOẠT ĐỘNG LÍNH CỨU HỎA THEO THỜI GIAN THỰC}\\
+    \textbf{TRONG TÌNH HUỐNG KHẨN CẤP}\\
+    \vspace{1.5cm}
+    Lĩnh vực khoa học và công nghệ: Khoa học kỹ thuật và công nghệ\\
+    Chuyên ngành thuộc lĩnh vực khoa học và công nghệ: Kỹ thuật điện tử và viễn thông
+\end{center}
+\fontsize{13pt}{15pt}\selectfont{
+    \vspace{1.5cm}
+    \begin{tabular}{l}
+        \hspace{1.8cm}Sinh viên thực hiện chính: Bùi Việt Hoàn \hspace{1.0cm}Nam, Nữ: Nam\\
+        \hspace{1.8cm}Lớp, Khoa: K15 KTYS, Khoa Điện -- Điện tử\\
+        \hspace{1.8cm}Giảng viên hướng dẫn: ThS. Đào Tô Hiệu\\
+    \end{tabular}
+}
+
+\pagebreak
+
+\fontsize{13pt}{15pt}\selectfont
+
+\pagenumbering{roman}
+\setcounter{page}{1}
+
+\renewcommand*\contentsname{\centering\fontsize{13pt}{15pt}\selectfont{MỤC LỤC}}
+\label{Muc_Luc}
+
+% Tùy chỉnh mục lục section
+\titlecontents{section}
+    [0em] % Độ lệch từ trái
+    {\bfseries} % Định dạng của tiêu đề mục lục
+    {CHƯƠNG \thecontentslabel: } % Định dạng của nhãn mục lục
+    {} % Định dạng của số trang (nếu có)
+    {\titlerule*[1pc]{.}\contentspage} % Định dạng của số trang
+% Tùy chỉnh mục lục subsection
+\titlecontents{subsection}
+    [0em] % Độ lệch từ trái
+    {\bfseries} % Định dạng của tiêu đề mục lục
+    {\thecontentslabel\enspace} % Định dạng của nhãn mục lục
+    {} % Định dạng của số trang (nếu có)
+    {\titlerule*[1pc]{.}\contentspage} % Định dạng của số trang
+% Tùy chỉnh mục lục subsubsection
+\titlecontents{subsubsection}
+    [0em] % Độ lệch từ trái
+    {\bfseries\itshape} % Định dạng của tiêu đề mục lục
+    {\thecontentslabel\enspace} % Định dạng của nhãn mục lục
+    {} % Định dạng của số trang (nếu có)
+    {\titlerule*[1pc]{.}\contentspage} % Định dạng của số trang
+% Tùy chỉnh mục lục paragraph
+\setcounter{secnumdepth}{4} % Cho phép đánh số tới cấp độ 4 (paragraph)
+\setcounter{tocdepth}{4} % Hiển thị cấp độ 4 trong mục lục
+\renewcommand\theparagraph{\thesubsubsection.\arabic{paragraph}} % Định dạng số mục lục cho paragraph
+\renewcommand\thesubparagraph{\theparagraph.\arabic{subparagraph}} % Định dạng số mục lục cho subparagraph
+\titlecontents{paragraph}
+    [0em] % Độ lệch từ trái
+    {\itshape} % Định dạng của tiêu đề mục lục
+    {\thecontentslabel\enspace} % Định dạng của nhãn mục lục
+    {} % Định dạng của số trang (nếu có)
+    {\titlerule*[1pc]{.}\contentspage} % Định dạng của số trang
+
+% Hiển thị mục lục
+\phantomsection
+\pdfbookmark[1]{MỤC LỤC}{bookmark_mucluc} % 1 = cấp section
+{\centering\fontsize{13pt}{15pt}\selectfont\tableofcontents}
+
+\pagebreak
+
+% Customizing list of figures
+\renewcommand*{\listfigurename}{\centering\fontsize{13pt}{15pt}\selectfont{DANH MỤC HÌNH ẢNH}}
+\label{Danh_Muc_Hinh_Anh}
+\makeatletter
+    \renewcommand*\l@figure{\@dottedtocline{1}{0em}{0em}} % Điều chỉnh khoảng cách nếu cần
+\makeatother
+\pdfbookmark[1]{DANH MỤC HÌNH ẢNH}{bookmark_figures} % 1 = cấp section
+% Tùy chỉnh danh mục hình ảnh
+\renewcommand{\numberline}[1]{Hình #1:\enspace} % Tiền số thứ tự
+{\centering\fontsize{13pt}{15pt}\selectfont\listoffigures} % Hiển thị danh mục hình ảnh
+
+\pagebreak
+
+% Customizing list of tables
+\renewcommand*{\listtablename}{\centering\fontsize{13pt}{15pt}\selectfont{DANH MỤC BẢNG BIỂU}}
+\label{Danh_Muc_Bang_Bieu}
+\makeatletter
+    \renewcommand*\l@table{\@dottedtocline{1}{0em}{0em}} % Điều chỉnh khoảng cách nếu cần
+\makeatother
+\pdfbookmark[1]{DANH MỤC BẢNG BIỂU}{bookmark_tables} % 1 = cấp section
+% Tùy chỉnh danh mục bảng biểu
+\renewcommand{\numberline}[1]{Bảng #1:\enspace} % Tiền số thứ tự
+{\centering\fontsize{13pt}{15pt}\selectfont\listoftables} % Hiển thị danh mục bảng biểu
+
+\pagebreak
+
+\pdfbookmark[1]{DANH MỤC TỪ VIẾT TẮT}{bookmark_abbreviations} % 1 = cấp section
+\section*{DANH MỤC TỪ VIẾT TẮT}
+\input{Chapters/abbreviations}
+
+\pagebreak
+
+% Thiết lập lại đánh số trang và đánh số trang từ 1
+\pagenumbering{arabic}
+\setcounter{page}{1}
+
+\phantomsection % tạo anchor đúng vị trí này
+\addcontentsline{toc}{section}{TÓM TẮT}
+\section*{TÓM TẮT}\label{sec_tomtat}
+\input{Chapters/abstract}
+
+\pagebreak
+
+\section{TỔNG QUAN TÌNH HÌNH NGHIÊN CỨU}
+\input{Chapters/literature_review}
+
+\pagebreak
+
+\section{VẬT LIỆU VÀ PHƯƠNG PHÁP}
+\input{Chapters/materials_and_methods}
+
+\pagebreak
+
+\section{KẾT QUẢ VÀ THẢO LUẬN}
+\input{Chapters/results_and_discussion}
+
+\pagebreak
+
+\phantomsection % tạo anchor đúng vị trí này
+\addcontentsline{toc}{section}{KẾT LUẬN VÀ KIẾN NGHỊ}
+\section*{KẾT LUẬN VÀ KIẾN NGHỊ}
+\input{Chapters/conclusion}
+
+\pagebreak
+
+\phantomsection % tạo anchor đúng vị trí này
+\addcontentsline{toc}{section}{TÀI LIỆU THAM KHẢO}
+\renewcommand*\refname{\centering\fontsize{13pt}{15pt}\selectfont{TÀI LIỆU THAM KHẢO}}
+\label{Tai_Lieu_Tham_Khao}
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
