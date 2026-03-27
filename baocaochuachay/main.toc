@@ -1,0 +1,62 @@
+\ttl@change@i {\@ne }{section}{0em}{\bfseries }{CHƯƠNG \thecontentslabel : }{}{\titlerule *[1pc]{.}\contentspage }\relax 
+\ttl@change@v {section}{}{}{}\relax 
+\ttl@change@i {\@ne }{subsection}{0em}{\bfseries }{\thecontentslabel \enspace }{}{\titlerule *[1pc]{.}\contentspage }\relax 
+\ttl@change@v {subsection}{}{}{}\relax 
+\ttl@change@i {\@ne }{subsubsection}{0em}{\bfseries \itshape }{\thecontentslabel \enspace }{}{\titlerule *[1pc]{.}\contentspage }\relax 
+\ttl@change@v {subsubsection}{}{}{}\relax 
+\ttl@change@i {\@ne }{paragraph}{0em}{\itshape }{\thecontentslabel \enspace }{}{\titlerule *[1pc]{.}\contentspage }\relax 
+\ttl@change@v {paragraph}{}{}{}\relax 
+\contentsline {section}{TÓM TẮT}{1}{section*.2}%
+\contentsline {section}{\numberline {1}TỔNG QUAN TÌNH HÌNH NGHIÊN CỨU}{3}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Thực trạng cháy nổ và an toàn lính cứu hỏa}{3}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}Tính cấp thiết của hệ thống giám sát hoạt động thời gian thực}{4}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}Tổng quan nghiên cứu nhận dạng hoạt động con người}{4}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Phân loại phương pháp nhận dạng hoạt động}{4}{subsubsection.1.3.1}%
+\contentsline {subsubsection}{\numberline {1.3.2}Học máy truyền thống trong nhận dạng hoạt động}{5}{subsubsection.1.3.2}%
+\contentsline {subsubsection}{\numberline {1.3.3}Học sâu trong nhận dạng hoạt động}{5}{subsubsection.1.3.3}%
+\contentsline {subsection}{\numberline {1.4}Tổng quan nghiên cứu nhận dạng hoạt động lính cứu hỏa}{5}{subsection.1.4}%
+\contentsline {subsection}{\numberline {1.5}TinyML và triển khai mô hình trên thiết bị biên}{6}{subsection.1.5}%
+\contentsline {subsection}{\numberline {1.6}Mục tiêu, phạm vi và đóng góp của đề tài}{7}{subsection.1.6}%
+\contentsline {section}{\numberline {2}VẬT LIỆU VÀ PHƯƠNG PHÁP}{9}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Kiến trúc hệ thống RFAR đề xuất}{9}{subsection.2.1}%
+\contentsline {subsubsection}{\numberline {2.1.1}Tổng quan hệ thống}{9}{subsubsection.2.1.1}%
+\contentsline {subsubsection}{\numberline {2.1.2}Cấu hình phần cứng}{9}{subsubsection.2.1.2}%
+\contentsline {subsection}{\numberline {2.2}Xây dựng cơ sở dữ liệu}{10}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Tập dữ liệu riêng}{10}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Các tập dữ liệu công khai}{11}{subsubsection.2.2.2}%
+\contentsline {subsection}{\numberline {2.3}Quy trình xử lý dữ liệu}{11}{subsection.2.3}%
+\contentsline {subsubsection}{\numberline {2.3.1}Giảm tần số lấy mẫu}{11}{subsubsection.2.3.1}%
+\contentsline {subsubsection}{\numberline {2.3.2}Phân đoạn tín hiệu bằng cửa sổ trượt}{12}{subsubsection.2.3.2}%
+\contentsline {subsubsection}{\numberline {2.3.3}Pipeline phát hiện ngã mới}{12}{subsubsection.2.3.3}%
+\contentsline {paragraph}{\numberline {2.3.3.1}Bước 1: Phát hiện chỉ số bất thường}{12}{paragraph.2.3.3.1}%
+\contentsline {paragraph}{\numberline {2.3.3.2}Bước 2: Thu thập dữ liệu xung quanh sự kiện bất thường}{13}{paragraph.2.3.3.2}%
+\contentsline {paragraph}{\numberline {2.3.3.3}Bước 3: Phân tích và phân loại}{14}{paragraph.2.3.3.3}%
+\contentsline {subsubsection}{\numberline {2.3.4}Gán nhãn dữ liệu}{14}{subsubsection.2.3.4}%
+\contentsline {subsection}{\numberline {2.4}Trích xuất đặc trưng}{14}{subsection.2.4}%
+\contentsline {subsubsection}{\numberline {2.4.1}Lựa chọn đặc trưng miền thời gian}{14}{subsubsection.2.4.1}%
+\contentsline {subsubsection}{\numberline {2.4.2}Tập đặc trưng tối ưu}{14}{subsubsection.2.4.2}%
+\contentsline {subsection}{\numberline {2.5}Tối ưu hóa mô hình Random Forest trên vi điều khiển}{14}{subsection.2.5}%
+\contentsline {subsubsection}{\numberline {2.5.1}Bài toán tối ưu hóa siêu tham số}{14}{subsubsection.2.5.1}%
+\contentsline {subsubsection}{\numberline {2.5.2}Kết quả tối ưu hóa}{15}{subsubsection.2.5.2}%
+\contentsline {subsubsection}{\numberline {2.5.3}Triển khai TinyML trên vi điều khiển ESP32}{16}{subsubsection.2.5.3}%
+\contentsline {section}{\numberline {3}KẾT QUẢ VÀ THẢO LUẬN}{18}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Phương pháp đánh giá}{18}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Kết quả trên tập dữ liệu riêng}{18}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}So sánh các mô hình học máy}{18}{subsubsection.3.2.1}%
+\contentsline {subsubsection}{\numberline {3.2.2}Phân tích ma trận nhầm lẫn}{19}{subsubsection.3.2.2}%
+\contentsline {subsection}{\numberline {3.3}Thực nghiệm thời gian thực}{20}{subsection.3.3}%
+\contentsline {subsubsection}{\numberline {3.3.1}Thiết lập thực nghiệm}{20}{subsubsection.3.3.1}%
+\contentsline {subsubsection}{\numberline {3.3.2}Kết quả thực nghiệm thời gian thực}{20}{subsubsection.3.3.2}%
+\contentsline {subsection}{\numberline {3.4}Kết quả trên các tập dữ liệu công khai}{21}{subsection.3.4}%
+\contentsline {subsection}{\numberline {3.5}So sánh với các nghiên cứu liên quan}{21}{subsection.3.5}%
+\contentsline {subsubsection}{\numberline {3.5.1}So sánh trên UniMiB-SHAR}{21}{subsubsection.3.5.1}%
+\contentsline {subsubsection}{\numberline {3.5.2}So sánh phát hiện ngã cho lính cứu hỏa}{22}{subsubsection.3.5.2}%
+\contentsline {subsection}{\numberline {3.6}Phân tích tham số và đặc trưng}{22}{subsection.3.6}%
+\contentsline {subsubsection}{\numberline {3.6.1}Ảnh hưởng của kích thước cửa sổ và tần số lấy mẫu}{22}{subsubsection.3.6.1}%
+\contentsline {subsubsection}{\numberline {3.6.2}Phân tích đóng góp của từng loại đặc trưng}{23}{subsubsection.3.6.2}%
+\contentsline {subsection}{\numberline {3.7}Hạn chế hiện tại và hướng phát triển}{23}{subsection.3.7}%
+\contentsline {subsubsection}{\numberline {3.7.1}Hạn chế đã xác định}{23}{subsubsection.3.7.1}%
+\contentsline {subsubsection}{\numberline {3.7.2}Định hướng nghiên cứu tiếp theo}{24}{subsubsection.3.7.2}%
+\contentsline {section}{KẾT LUẬN VÀ KIẾN NGHỊ}{25}{section*.23}%
+\contentsline {section}{TÀI LIỆU THAM KHẢO}{27}{section*.24}%
+\contentsfinish 

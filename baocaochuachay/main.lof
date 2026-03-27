@@ -1,0 +1,11 @@
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Thống kê tình hình cháy nổ qua các năm}}{3}{figure.caption.3}%
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Phân tích nguyên nhân chấn thương lính cứu hỏa}}{3}{figure.caption.4}%
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Kiến trúc tổng thể hệ thống RFAR nhận dạng hoạt động lính cứu hỏa thông qua thiết bị đeo tại thắt lưng, giao tiếp với màn hình chỉ huy qua sóng vô tuyến}}{9}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Sơ đồ pipeline phát hiện bất thường và xử lý dữ liệu: (a) lưu đồ pipeline tổng thể, (b) biến thiên tín hiệu trong hoạt động ngã, (c) kết quả phát hiện bất thường, (d) mức độ quan trọng đặc trưng}}{13}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Điểm F1$_{mi}$ và kích thước mô hình theo tham số của: (a) RF, (b) LBM, (c) DT, (d) XGB, (e) GBDT, (f) SVM}}{16}{figure.caption.12}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Kết quả triển khai dự đoán trên vi điều khiển: thời gian thực tế cho từng giai đoạn xử lý}}{17}{figure.caption.14}%
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Ma trận nhầm lẫn của mô hình RF trên: (a) tập dữ liệu riêng, (b) thực nghiệm thời gian thực, (c) SFDLA, (d) MobiFall, (e) UniMiB-SHAR}}{19}{figure.caption.15}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Thực nghiệm hệ thống RFAR trong điều kiện thực tế tại cơ sở đào tạo phòng cháy chữa cháy}}{20}{figure.caption.17}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Điểm $F1_{mi}$ của (a) RF, (b) XGB, (c) GBDT, (d) SVM, (e) DT và (f) LBM theo sự thay đổi của $F_s$ và kích thước cửa sổ}}{22}{figure.caption.21}%
+\contentsfinish 
+\contentsfinish 

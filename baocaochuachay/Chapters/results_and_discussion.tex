@@ -1,7 +1,287 @@
 \label{results_and_discussion}
 
-\subsection{Đánh giá phương pháp định vị}
-\input{Chapters/result_positioning}
+\subsection{Phương pháp đánh giá}
 
-\subsection{Đánh giá phương pháp nhận dạng hành động}
-\input{Chapters/result_har}
+Hiệu suất nhận dạng được đánh giá thông qua năm chỉ số chính: độ chính xác tổng thể ($acc$), độ nhạy ($sen$), độ đặc hiệu ($spe$), độ chính xác theo lớp ($pre$) và điểm F1. Dựa trên ma trận nhầm lẫn với các giá trị TP (dương tính thật), FP (dương tính giả), TN (âm tính thật) và FN (âm tính giả), các chỉ số được tính như sau:
+
+\begin{equation}
+acc = \frac{\sum_{k=1}^{K} TP_k}{\sum_{k=1}^{K} (TP_k + FP_k + FN_k + TN_k)}, \quad
+sen = \frac{\sum_{k=1}^{K} TP_k}{\sum_{k=1}^{K} (TP_k + FN_k)}
+\end{equation}
+
+\begin{equation}
+spe = \frac{\sum_{k=1}^{K} TN_k}{\sum_{k=1}^{K} (TN_k + FP_k)}, \quad
+pre = \frac{\sum_{k=1}^{K} TP_k}{\sum_{k=1}^{K} (TP_k + FP_k)}
+\end{equation}
+
+\begin{equation}
+F1_{mi} = \frac{2 \cdot pre \cdot sen}{pre + sen}, \quad
+F1_{ma} = \frac{1}{K} \sum_{k=1}^{K} F1_k
+\end{equation}
+
+trong đó $K = 11$ là số lớp hoạt động. Điểm $F1_{mi}$ (micro-averaged) phản ánh hiệu suất tổng thể theo từng mẫu, trong khi $F1_{ma}$ (macro-averaged) cho thấy khả năng phân loại đồng đều giữa các lớp. Tất cả mô hình được đánh giá bằng xác thực chéo 5-fold trên toàn bộ tập dữ liệu.
+
+\subsection{Kết quả trên tập dữ liệu riêng}
+
+\subsubsection{So sánh các mô hình học máy}
+
+Bảng~\ref{tab:model_config} (Chương~2) trình bày hiệu suất so sánh của sáu mô hình ML trên tập dữ liệu lính cứu hỏa. Mô hình RF đạt hiệu suất tốt nhất với $acc = 99{,}3\%$, $sen = 97{,}0\%$, $spe = 99{,}6\%$, $pre = 97{,}1\%$, $F1_{mi} = 96{,}1\%$ và $F1_{ma} = 97{,}0\%$. XGB đứng thứ hai với $F1_{mi} = 95{,}5\%$, tiếp theo là LBM ($95{,}2\%$), SVM ($93{,}7\%$), GBDT ($93{,}4\%$) và DT ($91{,}7\%$). RF được lựa chọn không chỉ vì hiệu suất ưu vượt mà còn nhờ sự cân bằng giữa kích thước mô hình (0,92~MB), tốc độ suy luận và độ ổn định khi triển khai.
+
+\subsubsection{Phân tích ma trận nhầm lẫn}
+
+Hình~\ref{fig:rfmatrix}-a trình bày ma trận nhầm lẫn của mô hình RF trên tập kiểm tra của tập dữ liệu riêng.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{Figure/RFmatrix.png}
+    \caption{Ma trận nhầm lẫn của mô hình RF trên: (a) tập dữ liệu riêng, (b) thực nghiệm thời gian thực, (c) SFDLA, (d) MobiFall, (e) UniMiB-SHAR}
+    \label{fig:rfmatrix}
+\end{figure}
+
+Bảng~\ref{tab:rf_results} (phần a) trình bày kết quả nhận dạng từng hoạt động trên tập dữ liệu riêng. Các hoạt động tĩnh và có đặc trưng rõ ràng như LY, SI và FA đạt độ nhận dạng rất cao. Hoạt động ngã (FA) đạt $acc = 100\%$ và $F1 = 99{,}6\%$. Hoạt động đi bộ (WA) và lên-xuống cầu thang (DS, US) có tỉ lệ nhầm lẫn cao hơn do sự tương đồng về mẫu tín hiệu giữa các cặp hoạt động này.
+
+\begin{table}[!htb]
+    \caption{Kết quả nhận dạng theo hoạt động của mô hình RF: (a) tập dữ liệu riêng; (b) thực nghiệm thời gian thực}
+    \label{tab:rf_results}
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+        >{\centering\arraybackslash}m{0.07\linewidth}
+    }
+    \hline\hline
+    \rowcolor{gray!20} & \multicolumn{4}{c}{\textbf{(a) Tập dữ liệu riêng}} & & \multicolumn{4}{c}{\textbf{(b) Thực nghiệm RT}} \\
+    \rowcolor{gray!20}HĐ & $acc$(\%) & $sen$(\%) & $pre$(\%) & $F1$(\%) & HĐ & $acc$(\%) & $sen$(\%) & $pre$(\%) & $F1$(\%) \\
+    \hline\hline
+    WA & 98,7 & 90,8 & 91,8 & 91,3 & WA & 98,5 & 91,7 & 92,5 & 92,1 \\
+    ST & 99,7 & 97,6 & 99,5 & 98,5 & ST & 99,1 & 99,1 & 99,1 & 99,1 \\
+    LY & 99,8 & 99,5 & 99,4 & 99,4 & LY & 99,6 & 99,6 & 99,6 & 99,6 \\
+    SI & 99,8 & 99,3 & 99,5 & 99,4 & SI & 99,6 & 97,8 & 99,1 & 98,5 \\
+    JO & 99,7 & 99,2 & 99,3 & 99,3 & JO & 99,6 & 95,3 & 98,7 & 96,9 \\
+    WS & 99,7 & 98,0 & 98,5 & 98,3 & WS & 99,6 & 98,0 & 98,4 & 98,2 \\
+    CR & 99,5 & 97,7 & 97,6 & 97,6 & CR & 99,2 & 99,2 & 97,2 & 98,2 \\
+    SL & 99,6 & 98,3 & 98,3 & 98,3 & SL & 99,5 & 95,3 & 99,2 & 97,2 \\
+    FA & 99,9 & 99,9 & 99,3 & 99,6 & FA & 100  & 100  & 100  & 100  \\
+    DS & 99,4 & 96,8 & 95,5 & 96,1 & DS & 99,1 & 90,1 & 95,0 & 92,5 \\
+    US & 99,4 & 95,3 & 96,0 & 95,6 & US & 99,3 & 90,9 & 91,8 & 91,3 \\
+    \hline
+    TB & 99,3 & 97,0 & 97,1 & \textbf{96,1} & TB & 99,4 & 96,4 & 96,6 & \textbf{96,2} \\
+    \hline\hline
+    \end{tabular}}
+    \footnotesize \textit{Chú thích: TB = Trung bình; HĐ = Hoạt động; RT = Thời gian thực}
+\end{table}
+
+\subsection{Thực nghiệm thời gian thực}
+
+\subsubsection{Thiết lập thực nghiệm}
+
+Hình~\ref{fig:demo} trình bày thiết lập thực nghiệm thời gian thực tại cơ sở đào tạo. Các tình nguyện viên thực hiện lặp lại các hoạt động trong khi đeo thiết bị RFAR tại thắt lưng. Trung tâm chỉ huy nhận dữ liệu trạng thái hoạt động theo thời gian thực qua kênh truyền thông 433~MHz.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{Figure/demo_realtime.png}
+    \caption{Thực nghiệm hệ thống RFAR trong điều kiện thực tế tại cơ sở đào tạo phòng cháy chữa cháy}
+    \label{fig:demo}
+\end{figure}
+
+\subsubsection{Kết quả thực nghiệm thời gian thực}
+
+Bảng~\ref{tab:rf_results} (phần b) trình bày kết quả nhận dạng theo từng hoạt động trong thực nghiệm thời gian thực. Mô hình đạt $acc = 99{,}4\%$, $sen = 96{,}4\%$, $spe = 99{,}6\%$, $pre = 96{,}6\%$ và $F1_{mi} = 96{,}2\%$. Hoạt động FA được nhận dạng chính xác hoàn toàn (100\%) trong tất cả 162 cửa sổ. Các hoạt động ST (317/320), LY (269/270), SI (224/229), WS (241/246), JO (121/127), CR (262/264) và SL (122/128) cũng đạt hiệu suất rất cao, với tất cả các chỉ số vượt 95\%. Ngược lại, WA có 17 lỗi phân loại, chủ yếu bị nhầm với JO, WS, DS hoặc US. Các hoạt động DS và US cũng ghi nhận một số nhầm lẫn đáng chú ý, với 23/233 DS và 21/232 US bị phân loại sai. Tuy nhiên, số lượng nhầm lẫn tương đối nhỏ và được đánh giá là chấp nhận được trong thực tế.
+
+Đặc biệt, sự sai lệch giữa kết quả tập dữ liệu riêng và thực nghiệm thời gian thực nhỏ hơn 1\% ở tất cả các chỉ số, cho thấy mô hình duy trì được tính ổn định trong điều kiện thực tế. Kết quả này được đánh giá là đáng khích lệ, nhờ cơ chế phát hiện AIx giúp xử lý hiệu quả các chuyển tiếp tư thế, giảm thiễu trong chuỗi hoạt động thực tế.
+
+\subsection{Kết quả trên các tập dữ liệu công khai}
+
+Bảng~\ref{tab:public} trình bày hiệu suất nhận dạng của mô hình RF trên ba tập dữ liệu công khai.
+
+\begin{table}[!htb]
+    \caption{Kết quả đánh giá trên các tập dữ liệu công khai}
+    \label{tab:public}
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{m{0.18\linewidth}m{0.12\linewidth}m{0.10\linewidth}m{0.10\linewidth}m{0.10\linewidth}m{0.10\linewidth}m{0.10\linewidth}m{0.10\linewidth}}
+    \hline\hline
+    \rowcolor{gray!20}\textbf{Tập dữ liệu} & \textbf{Model} & $acc$(\%) & $sen$(\%) & $spe$(\%) & $pre$(\%) & $F1_{mi}$(\%) & $F1_{ma}$(\%) \\
+    \hline\hline
+    SFDLA  & RF & 99,4 & 100 & 100 & 100 & 96,6 & 98,2 \\
+    MobiFall & RF & 99,2 & 99,5 & 99,9 & 99,4 & 96,6 & 97,4 \\
+    UniMiB (AF17) & RF & 97,4 & 96,3 & 99,2 & 94,8 & 78,2 & 79,7 \\
+    UniMiB (AF2) & RF & 100  & 100  & 100  & 100  & 100  & 100  \\
+    \hline\hline
+    \end{tabular}}
+\end{table}
+
+Trên SFDLA và MobiFall, mô hình đạt $F1_{mi} = 96{,}6\%$, tương đương với kết quả trên tập dữ liệu riêng. Trên UniMiB (nhóm AF17), hiệu suất thấp hơn đáng kể với $F1_{mi} = 78{,}2\%$, chủ yếu do sự khác biệt về hướng đặt cảm biến và sự đa dạng hơn về loại ngã. Khi đơn giản hóa bài toán thành phân loại ngã/không-ngã (AF2), mô hình đạt 100\% ở tất cả các chỉ số.
+
+\subsection{So sánh với các nghiên cứu liên quan}
+
+\subsubsection{So sánh trên UniMiB-SHAR}
+
+Bảng~\ref{tab:unimib} so sánh phương pháp đề xuất với các nghiên cứu trước trên UniMiB-SHAR.
+
+\begin{table}[!htb]
+    \caption{So sánh hiệu suất nhận dạng trên tập dữ liệu UniMiB-SHAR}
+    \label{tab:unimib}
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{
+        >{\arraybackslash}m{0.14\linewidth}
+        >{\arraybackslash}m{0.30\linewidth}
+        >{\centering\arraybackslash}m{0.15\linewidth}
+        >{\centering\arraybackslash}m{0.15\linewidth}}
+    \hline\hline
+    \rowcolor{gray!20}\textbf{Tập dữ liệu} & \textbf{Nghiên cứu} & $acc$~(\%) & $F1_{mi}$~(\%) \\
+    \hline\hline
+    \multirow{3}{*}{(a) AF17}
+    & Đề xuất         & 97,4 & 78,2 \\
+    & Xu et al.~\cite{HAR_DCT_deeplearning2023} & 97,6 & 79,7 \\
+    & Teng et al.~\cite{HAR_CNN_2025} & 97,2 & 78,6 \\ \hline
+    \multirow{4}{*}{(b) AF2}
+    & Đề xuất         & 100  & 100  \\
+    & Al-qaness et al.~\cite{UniMiFall2024} & 99,95 & -- \\
+    & Kanjilal et al.~\cite{HAR_deeplearning2021} & 99,82 & 98,86 \\
+    & Iloga et al.~\cite{HMM_UniMiB2021} & 98,85 & -- \\
+    \hline\hline
+    \end{tabular}}
+\end{table}
+
+Đối với AF17, mô hình đề xuất đạt $acc = 97{,}4\%$ và $F1_{mi} = 78{,}2\%$, thấp hơn CNN-DCT \cite{HAR_DCT_deeplearning2023} ($79{,}7\%$) nhưng cao hơn CNN-TSFDU-LW \cite{HAR_CNN_2025} ($78{,}6\%$). Sự khác biệt nhỏ này đạt được mà không cần đến các kiến trúc học sâu phức tạp. Đối với AF2, phương pháp đề xuất đạt 100\% ở tất cả chỉ số, nhờ cơ chế AIx giảm thiểu nhầm lẫn giữa sự kiện ngã và các chuyển tiếp tư thế thông thường.
+
+\subsubsection{So sánh phát hiện ngã cho lính cứu hỏa}
+
+Bảng~\ref{tab:fall_compare} so sánh mô hình phát hiện ngã đề xuất với các nghiên cứu trước về lính cứu hỏa và trên các tập dữ liệu công khai.
+
+\begin{table}[!htb]
+    \caption{So sánh hiệu suất phát hiện ngã trên các tập dữ liệu}
+    \label{tab:fall_compare}
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{
+        >{\centering\arraybackslash}m{0.12\linewidth}
+        >{\arraybackslash}m{0.26\linewidth}
+        >{\centering\arraybackslash}m{0.08\linewidth}
+        >{\centering\arraybackslash}m{0.08\linewidth}
+        >{\centering\arraybackslash}m{0.08\linewidth}
+        >{\centering\arraybackslash}m{0.08\linewidth}}
+    \hline\hline
+    \rowcolor{gray!20}\textbf{Dataset} & \textbf{Nghiên cứu} & $sen$(\%) & $spe$(\%) & $acc$(\%) & $GM$(\%) \\
+    \hline\hline
+    \multirow{4}{*}{Riêng}
+    & Đề xuất         & 100   & 100   & 100   & 100   \\
+    & Dang et al.~\cite{Dang2022}   & 100   & 98,88 & 99,49 & 99,40 \\
+    & Chai et al.~\cite{Chai2021}   & 92,25 & 94,59 & 94,10 & 93,40 \\
+    & Thanh et al.~\cite{Thanhfire2019} & 95,89 & 100 & 97,96 & 95,24 \\ \hline
+    \multirow{4}{*}{SFDLA}
+    & Đề xuất         & 100   & 100   & 100   & 100   \\
+    & Dang et al.~\cite{Dang2022}   & 95,89 & 100   & 97,96 & 97,92 \\
+    & Thanh et al.~\cite{Thanhfire2019} & 93,33 & 91,67 & 92,50 & 92,50 \\
+    & Enol et al.~\cite{SFDLA_CNN_LSTM_fall2022} & 100  & 99,97 & 99,97 & 99,98 \\ \hline
+    \multirow{5}{*}{MobiFall}
+    & Đề xuất         & 100   & 100   & 100   & 100   \\
+    & Yi et al.~\cite{MobiFall_Yi_2024} & 100 & 100 & 100 & 100 \\
+    & Zhang et al.~\cite{MobiFall2024}  & 100 & -- & 99,65 & -- \\
+    & Dang et al.~\cite{Dang2022}   & 100   & 98,88 & 99,49 & 99,44 \\
+    & Hussain et al.~\cite{MobiFall2019} & 96,72 & -- & 98,60 & -- \\
+    \hline\hline
+    \end{tabular}}
+    \footnotesize \textit{Chú thích: $GM = \sqrt{spe \times sen}$ (Trung bình nhân)}
+\end{table}
+
+Phương pháp đề xuất đạt 100\% ở tất cả chỉ số trên ba tập SFDLA, MobiFall, và dataset riêng. Ưu điểm nổi bật so với các phương pháp ngưỡng cố định của Thanh et al. \cite{Thanhfire2019} và Dang et al. \cite{Dang2022} là cơ chế AIx linh hoạt hơn, không cần tinh chỉnh ngưỡng thủ công, và ít bị ảnh hưởng bởi sự khác biệt về thể trạng cá nhân.
+
+\subsection{Phân tích tham số và đặc trưng}
+
+\subsubsection{Ảnh hưởng của kích thước cửa sổ và tần số lấy mẫu}
+
+Hình~\ref{fig:window} trình bày điểm F1$_{mi}$ theo các giá trị tần số lấy mẫu ($F_s$) và kích thước cửa sổ trên tập dữ liệu riêng, áp dụng cho sáu mô hình ML.
+
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=1\linewidth]{Figure/accurracyonwindow.png}
+    \caption{Điểm $F1_{mi}$ của (a) RF, (b) XGB, (c) GBDT, (d) SVM, (e) DT và (f) LBM theo sự thay đổi của $F_s$ và kích thước cửa sổ}
+    \label{fig:window}
+\end{figure}
+
+Kết quả thực nghiệm cho thấy cửa sổ 3 giây tại 50~Hz là lựa chọn tối ưu thực tế. Khi tăng lên 100~Hz, điểm F1$_{mi}$ chỉ cải thiện 0,2--0,3\% nhưng tiêu tốn gấp đôi năng lượng xử lý và truyền thông. Cửa sổ 6 giây đạt F1$_{mi}$ trên 99\% nhưng gây chồng lấp giữa các hoạt động trong kịch bản thực tế -- nơi lính cứu hỏa chuyển đổi hoạt động nhanh. Cửa sổ 1 giây gây giảm mạnh khoảng 15\% do không đủ thông tin đặc trưng.
+
+\subsubsection{Phân tích đóng góp của từng loại đặc trưng}
+
+Bảng~\ref{tab:features_ablation} trình bày kết quả thực nghiệm loại trừ từng loại đặc trưng.
+
+\begin{table}[!htb]
+    \caption{So sánh hiệu quả tập đặc trưng trên tập dữ liệu riêng}
+    \label{tab:features_ablation}
+    \centering
+    \footnotesize
+    \renewcommand{\arraystretch}{1.2}
+    \resizebox{\linewidth}{!}{
+    \begin{tabular}{
+        >{\arraybackslash}m{0.55\linewidth}
+        >{\centering\arraybackslash}m{0.15\linewidth}
+        >{\centering\arraybackslash}m{0.18\linewidth}}
+    \hline\hline
+    \rowcolor{gray!20}\textbf{Tập đặc trưng áp dụng} & \textbf{Số loại} & $F1_{mi}$~(\%) \\
+    \hline\hline
+    Đề xuất                        & 13 & \textbf{96,1} \\
+    Bỏ năng lượng                  & 12 & 93,4 ($\downarrow$2,7)  \\
+    Bỏ độ lệch tuyệt đối trung bình & 12 & 93,5 ($\downarrow$2,6)  \\
+    Bỏ diện tích độ lớn tín hiệu   & 12 & 93,3 ($\downarrow$2,8)  \\
+    Bỏ biến đổi biên độ trung bình  & 12 & 93,0 ($\downarrow$3,1)  \\
+    Bỏ tích phân bình phương đơn giản & 12 & 93,8 ($\downarrow$2,3) \\
+    Bỏ trung bình                  & 12 & 92,6 ($\downarrow$3,5)  \\
+    Bỏ độ lệch chuẩn               & 12 & 93,0 ($\downarrow$3,1)  \\
+    Bỏ giá trị lớn nhất            & 12 & 93,0 ($\downarrow$3,1)  \\
+    Bỏ phạm vi tứ phân vị           & 12 & 93,6 ($\downarrow$2,5)  \\
+    Bỏ độ phức tạp Hjorth          & 12 & 93,0 ($\downarrow$3,1)  \\
+    Bỏ độ lệch tuyệt đối trung vị  & 12 & 93,8 ($\downarrow$2,3)  \\
+    Bỏ phạm vi                     & 12 & 93,2 ($\downarrow$2,9)  \\
+    \hline
+    Chai \cite{CHAI_FIRE2024} (26 loại: thời gian + tần số) & 26 & 95,6 ($\downarrow$0,5) \\
+    Wang \cite{Wang2018} (11 thời gian + 2 tần số) & 16 & 92,9 ($\downarrow$3,2) \\
+    Vi \cite{ViManhTuyen2024} (5 loại) & 5 & 85,7 ($\downarrow$10,4) \\
+    Hong \cite{HongNhung2023} (5 loại) & 5 & 83,1 ($\downarrow$13,0) \\
+    \hline\hline
+    \end{tabular}}
+\end{table}
+
+Việc loại bỏ bất kỳ loại đặc trưng nào trong 13 loại đều dẫn đến giảm F1$_{mi}$, xác nhận rằng mỗi loại đặc trưng đều có đóng góp nhất định. Đặc biệt, việc loại bỏ giá trị trung bình gây giảm mạnh nhất (3,5\%), tiếp theo là biến đổi biên độ trung bình (3,1\%), độ lệch chuẩn (3,1\%) và diện tích độ lớn tín hiệu (2,8\%). Đáng chú ý, tập 26 đặc trưng của Chai \cite{CHAI_FIRE2024} chỉ đạt $F1_{mi} = 95{,}6\%$ -- thấp hơn tập đề xuất -- trong khi đòi hỏi nhiều tài nguyên tính toán hơn. Ngược lại, các tập đặc trưng ít hơn (5 loại) cho kết quả thấp hơn đáng kể, cho thấy tập 13 loại đặc trưng đạt sự cân bằng tối ưu giữa số lượng và hiệu suất.
+
+\subsection{Hạn chế hiện tại và hướng phát triển}
+
+\subsubsection{Hạn chế đã xác định}
+
+Mặc dù hệ thống RFAR đã thể hiện hiệu quả trong thực nghiệm, một số hạn chế cần được giải quyết để nâng cao tính ứng dụng thực tế:
+
+\begin{itemize}
+    \item \textbf{Thiết kế phần cứng:} Thiết bị hiện tại được lắp ráp thủ công, chưa tối ưu về kích thước và kiểu dáng để tích hợp vào trang phục bảo hộ. Cần nghiên cứu thiết kế công nghiệp để thu gọn và đảm bảo độ bền trong môi trường nhiệt độ cao.
+    \item \textbf{Tính đại diện của dữ liệu:} Tập dữ liệu riêng chỉ bao gồm tình nguyện viên nam với thể trạng gần với lính cứu hỏa chuyên nghiệp. Điều này có thể hạn chế khả năng thích nghi của mô hình với lính cứu hỏa có đặc điểm thể chất khác biệt đáng kể.
+    \item \textbf{Phân biệt các loại ngã cụ thể:} Mô hình hiện đạt F1$_{mi} = 78{,}2\%$ trên UniMiB-SHAR (AF17 với 8 loại ngã đa dạng), cho thấy hạn chế trong việc phân biệt các loại ngã có mẫu chuyển động tương tự.
+    \item \textbf{Tính năng chưa tích hợp:} Hệ thống hiện tại là một thành phần trong hệ thống định vị trong nhà tổng thể và chưa tích hợp theo dõi vị trí và cơ chế cảnh báo khẩn cấp tự động.
+\end{itemize}
+
+\subsubsection{Định hướng nghiên cứu tiếp theo}
+
+Dựa trên những hạn chế đã xác định, nghiên cứu đề ra các định hướng phát triển ưu tiên trong các giai đoạn tiếp theo:
+
+\begin{itemize}
+    \item \textbf{Tối ưu hóa thiết kế phần cứng:} Phát triển phiên bản thiết kế công nghiệp, tích hợp vào thắt lưng hoặc áo bảo hộ, giảm thiểu kích thước và đảm bảo khả năng chịu nhiệt.
+    \item \textbf{Mở rộng đa dạng dữ liệu:} Thu thập thêm dữ liệu từ tình nguyện viên nữ và người có đặc điểm thể chất khác biệt, đồng thời bổ sung nhiều kịch bản cứu nạn.
+    \item \textbf{Tích hợp hệ thống định vị:} Kết hợp với hệ thống IPS để cung cấp thông tin vị trí $+$ trạng thái hoạt động đồng thời.
+    \item \textbf{Mạng lưới giám sát tập trung:} Xây dựng hệ thống theo dõi nhiều lính cứu hỏa đồng thời với cơ chế cảnh báo khẩn cấp tự động khi phát hiện bất động kéo dài hoặc ngã.
+\end{itemize}
